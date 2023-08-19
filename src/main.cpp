@@ -1,22 +1,22 @@
 #include <Arduino.h>
 
-#include "sensors/bmp280.h"
+#include "sensors/bme280.h"
 #include "wifi/wifiManager.h"
 
 /**
  * On D1 mini : D1 -> SDL / D2 -> SDA
  * TODO : Customise PIN to use
  */
-Bmp280 bmp;
+Bme280 bme;
 WifiManager wifi;
 
 void setup()
 {
     Serial.begin(9600);
 
-    if (!bmp.setup())
+    if (!bme.setup())
     {
-        Serial.println("Could not find a valid BMP280 sensor, check wiring or try a different address!");
+        Serial.println("Could not find a valid BME280 sensor, check wiring or try a different address!");
         while (1) delay(10);
     }
 
@@ -33,19 +33,19 @@ void setup()
 
 void loop()
 {
-    if (bmp.measure())
+    if (bme.measure())
     {
         Serial.print(F("Temperature = "));
-        Serial.print(bmp.readTemperature());
+        Serial.print(bme.readTemperature());
         Serial.println(" *C");
 
         Serial.print(F("Pressure = "));
-        Serial.print(bmp.readPressure());
+        Serial.print(bme.readPressure());
         Serial.println(" Pa");
 
-        Serial.print(F("Approx altitude = "));
-        Serial.print(bmp.readAltitude(1013.25));
-        Serial.println(" m");
+        Serial.print(F("Humidity = "));
+        Serial.print(bme.readHumidity());
+        Serial.println(" %");
 
         Serial.println();
         delay(2000);

@@ -1,18 +1,18 @@
-#include "bmp280.h"
+#include "bme280.h"
 
-#define BMP280_ADDR 0x76
+#define BME280_ADDR 0x76
 
-bool Bmp280::setup()
+bool Bme280::setup()
 {
-    unsigned status = m_bmp.begin(BMP280_ADDR);
+    unsigned status = m_bme.begin(BME280_ADDR);
     if (!status) return false;
 
     /* Default settings from datasheet. */
-    m_bmp.setSampling(Adafruit_BMP280::MODE_FORCED,     /* Operating Mode. */
-                    Adafruit_BMP280::SAMPLING_X2,     /* Temp. oversampling */
-                    Adafruit_BMP280::SAMPLING_X16,    /* Pressure oversampling */
-                    Adafruit_BMP280::FILTER_X16,      /* Filtering. */
-                    Adafruit_BMP280::STANDBY_MS_500); /* Standby time. */
+    m_bme.setSampling(Adafruit_BME280::MODE_FORCED,
+                      Adafruit_BME280::SAMPLING_X1, // temperature
+                      Adafruit_BME280::SAMPLING_X1, // pressure
+                      Adafruit_BME280::SAMPLING_X1, // humidity
+                      Adafruit_BME280::FILTER_OFF); /* Standby time. */
 
     return true;
 }
