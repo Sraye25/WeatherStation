@@ -53,7 +53,7 @@ void publishMqttDatas(float temperature, float pressure, float humidity)
     //Connect to MQTT server
     while(!mqttClient.connected())
     {
-        Serial.print("Attente MQTT connection...");
+        Serial.print("Waiting MQTT connection...");
  
         // test connexion
         if (mqttClient.connect(MQTT_CLIENT_ID, MQTT_USER, MQTT_PWD))
@@ -62,9 +62,9 @@ void publishMqttDatas(float temperature, float pressure, float humidity)
         }
         else
         {
-            Serial.print("ECHEC, rc=");
+            Serial.print("KO, rc=");
             Serial.print(mqttClient.state());
-            Serial.println(" nouvelle tentative dans 5 secondes");
+            Serial.println("Retry in 5 seconds ...");
             delay(5000);
         }
     }
