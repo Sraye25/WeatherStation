@@ -9,6 +9,12 @@ class WifiManager
 
     bool setup(const char* ssid, const char* pwd);
     inline IPAddress getLocalIp() { return WiFi.localIP(); }
+
+    WiFiClient& getWifiClient() { return m_wifiClient; }
+
+    private:
+
+    WiFiClient m_wifiClient;
 };
 
 #endif
